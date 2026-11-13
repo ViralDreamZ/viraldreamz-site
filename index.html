@@ -1,457 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viral DreamZ Studio — The Flying Jacuzzi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Freckle+Face&family=Luckiest+Guy&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Viral DreamZ Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Luckiest+Guy&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet" />
   <style>
-    * {
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+
+    html {
+      width: 100%;
+      min-height: 100%;
+      background-color: #120424;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
+      width: 100%;
       min-height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background-color: #120428;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      font-family: 'Orbitron', sans-serif;
       color: #ffffff;
+      background: #120424;
       position: relative;
-      padding: 24px;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Fond psychédélique fluide multi-couches */
-    .psychedelic-bg {
-      position: fixed;
-      inset: -30%;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255, 0, 128, 0.85) 0%, transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(0, 245, 212, 0.8) 0%, transparent 45%),
-        radial-gradient(circle at 75% 80%, rgba(155, 93, 229, 0.9) 0%, transparent 50%),
-        radial-gradient(circle at 25% 80%, rgba(255, 190, 11, 0.65) 0%, transparent 45%),
-        linear-gradient(135deg, #3a0ca3 0%, #7209b7 35%, #f72585 70%, #00bbf9 100%);
-      filter: blur(35px);
-      animation: trippySwirl 14s ease-in-out infinite alternate, hueTrip 18s linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes trippySwirl {
-      0%   { transform: rotate(0deg) scale(1); }
-      50%  { transform: rotate(8deg) scale(1.15); }
-      100% { transform: rotate(-6deg) scale(1.08); }
-    }
-
-    @keyframes hueTrip {
-      0%   { filter: blur(35px) hue-rotate(0deg) saturate(1.3); }
-      50%  { filter: blur(35px) hue-rotate(45deg) saturate(1.6); }
-      100% { filter: blur(35px) hue-rotate(0deg) saturate(1.3); }
-    }
-
-    /* Assombrissement central léger pour faire ressortir les néons */
-    .vignette {
+    /* Fond psychédélique fixe qui ne bloque jamais le défilement */
+    .bg-aurora {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(16, 6, 38, 0.35) 0%, rgba(8, 3, 20, 0.72) 100%);
+      z-index: 0;
       pointer-events: none;
-      z-index: 1;
+      background:
+        radial-gradient(circle at var(--mx, 25%) var(--my, 35%), rgba(255, 20, 120, 0.55) 0%, transparent 55%),
+        radial-gradient(circle at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 35%)), rgba(0, 225, 255, 0.45) 0%, transparent 55%),
+        radial-gradient(circle at 50% 50%, rgba(123, 31, 162, 0.5) 0%, #100321 80%);
+      transition: background 0.08s linear;
     }
 
-    /* Grille synthwave animée au bas */
-    .retro-grid {
+    /* Grille rétro en perspective au bas de l'écran */
+    .perspective-grid {
       position: fixed;
-      bottom: -24%;
       left: -25%;
-      width: 150%;
-      height: 60%;
-      background-image:
-        linear-gradient(rgba(255, 42, 133, 0.28) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 245, 212, 0.28) 1px, transparent 1px);
-      background-size: 54px 54px;
-      transform: perspective(360px) rotateX(68deg);
-      animation: gridFlow 3.2s linear infinite;
-      mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 85%);
-      -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 85%);
+      right: -25%;
+      bottom: 0;
+      height: 45vh;
+      z-index: 1;
       pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255, 42, 133, 0.18) 1px, transparent 1px),
+        linear-gradient(to top, rgba(0, 245, 212, 0.18) 1px, transparent 1px);
+      background-size: 48px 36px;
+      transform: perspective(360px) rotateX(65deg);
+      transform-origin: bottom center;
+      mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 10%, transparent 95%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 10%, transparent 95%);
+    }
+
+    /* Effet de lignes CRT subtil */
+    .scanlines {
+      position: fixed;
+      inset: 0;
       z-index: 2;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.02) 0px,
+        rgba(255, 255, 255, 0.02) 1px,
+        rgba(0, 0, 0, 0.12) 2px,
+        rgba(0, 0, 0, 0.12) 4px
+      );
     }
 
-    @keyframes gridFlow {
-      from { background-position: 0 0; }
-      to   { background-position: 0 54px; }
-    }
-
-    /* Canevas d'effets psychédéliques au passage de la souris */
-    #psy-canvas {
+    /* Canvas des particules réactives à la souris et au doigt */
+    #trip-canvas {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      mix-blend-mode: screen;
       z-index: 3;
-    }
-
-    /* Lignes d'écran CRT rétro */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.03) 0px,
-        rgba(255, 255, 255, 0.03) 1px,
-        transparent 1px,
-        transparent 3px
-      );
       pointer-events: none;
-      z-index: 5;
     }
 
-    main {
+    /* Conteneur principal centré mais toujours défilable en paysage */
+    .stage {
       position: relative;
       z-index: 4;
-      max-width: 980px;
       width: 100%;
+      max-width: 980px;
+      margin: auto;
+      padding: clamp(2rem, 6vh, 4rem) clamp(0.75rem, 4vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: clamp(1.2rem, 3.5vh, 2.4rem);
     }
 
-    .tagline {
+    .subtitle {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(0.78rem, 1.5vw, 1rem);
-      font-weight: 700;
-      letter-spacing: 0.48em;
+      font-weight: 800;
+      font-size: clamp(0.68rem, 2.7vw, 1.05rem);
+      letter-spacing: clamp(0.22em, 1.2vw, 0.48em);
+      padding-left: clamp(0.22em, 1.2vw, 0.48em);
+      color: #7ef9ff;
       text-transform: uppercase;
-      color: #72efdd;
-      text-shadow: 0 0 12px rgba(114, 239, 221, 0.85), 0 0 24px rgba(247, 37, 133, 0.6);
-      margin-bottom: 1.3rem;
+      text-shadow: 0 0 12px rgba(0, 245, 212, 0.75), 0 0 24px rgba(255, 42, 133, 0.45);
+      white-space: nowrap;
+      max-width: 100%;
     }
 
-    /* Lettrage loufoque et déjanté avec gros V, D, Z et S */
-    h1 {
+    /* Titre principal psychédélique */
+    .logo-title {
       font-family: 'Luckiest Guy', cursive;
-      font-size: clamp(2.6rem, 7vw, 5.2rem);
-      line-height: 1.12;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 2.4rem;
-      background: linear-gradient(90deg, #00f5d4, #00bbf9, #ff70a6, #ffbe0b, #00f5d4);
-      background-size: 250% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter:
-        drop-shadow(-4px 4px 0px #f72585)
-        drop-shadow(3px -2px 0px #3a0ca3)
-        drop-shadow(0 0 20px rgba(0, 245, 212, 0.6));
-      animation: logoShimmer 6s linear infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.15rem, 1vw, 0.5rem);
+      width: 100%;
+      line-height: 1.05;
+      user-select: none;
+      filter: drop-shadow(0 0 18px rgba(255, 0, 140, 0.45));
     }
 
-    @keyframes logoShimmer {
-      0%   { background-position: 0% center; }
-      100% { background-position: 250% center; }
+    /* Force VIRAL DREAMZ à rester sur une seule ligne peu importe l'écran */
+    .title-line {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      max-width: 100%;
+      font-size: clamp(1.75rem, 7.6vw, 4.9rem);
     }
 
-    /* Style commun aux grosses lettres loufoques V, D, Z, S */
-    .wacky-big {
+    .title-line.studio-line {
+      font-size: clamp(1.65rem, 7.2vw, 4.5rem);
+    }
+
+    .word-gap {
       display: inline-block;
-      font-family: 'Freckle Face', cursive;
-      font-size: 1.42em;
-      line-height: 0.78;
-      background: linear-gradient(180deg, #ffbe0b 0%, #ff007f 52%, #00f5d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter:
-        drop-shadow(4px 4px 0px #240046)
-        drop-shadow(0 0 18px rgba(255, 0, 127, 0.9));
+      width: 0.34em;
     }
 
-    .letter-v {
-      margin-right: 0.01em;
-      animation: wackyV 2.4s ease-in-out infinite alternate;
-    }
-
-    .letter-d {
-      margin-left: 0.14em;
-      margin-right: 0.01em;
-      animation: wackyD 2.7s ease-in-out infinite alternate;
-    }
-
-    .letter-z {
-      margin-left: 0.02em;
-      animation: wackyZ 2.2s ease-in-out infinite alternate;
-    }
-
-    .letter-s {
-      margin-right: 0.02em;
-      animation: wackyS 2.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes wackyV {
-      0%   { transform: rotate(-10deg) translateY(0.02em) scale(1.02); }
-      100% { transform: rotate(-3deg) translateY(-0.05em) scale(1.12); }
-    }
-
-    @keyframes wackyD {
-      0%   { transform: rotate(7deg) translateY(-0.03em) scale(1.05); }
-      100% { transform: rotate(-5deg) translateY(0.04em) scale(1.13); }
-    }
-
-    @keyframes wackyZ {
-      0%   { transform: rotate(-9deg) translateY(0.03em) scale(1.04); }
-      100% { transform: rotate(6deg) translateY(-0.04em) scale(1.15); }
-    }
-
-    @keyframes wackyS {
-      0%   { transform: rotate(-8deg) translateY(-0.02em) scale(1.03); }
-      100% { transform: rotate(5deg) translateY(0.04em) scale(1.12); }
-    }
-
-    .studio-line {
-      display: block;
-      font-size: 0.88em;
-      letter-spacing: 0.12em;
-      margin-top: 0.15em;
-    }
-
-    /* Carte néon du jeu */
-    .game-card {
+    .wacky-char {
       display: inline-block;
-      padding: clamp(1.6rem, 3.8vw, 2.5rem) clamp(1.8rem, 5.2vw, 4rem);
-      background: rgba(14, 7, 32, 0.78);
-      border: 2px solid rgba(0, 245, 212, 0.55);
+      background: linear-gradient(
+        180deg,
+        #ffb703 0%,
+        #ff2a85 48%,
+        #00f5d4 92%
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(25, 4, 48, 0.55);
+      filter:
+        drop-shadow(2px 3px 0px #190430)
+        drop-shadow(4px 6px 0px #2b064d)
+        drop-shadow(0px 0px 10px rgba(255, 42, 133, 0.45));
+      animation:
+        charFloat 2.8s ease-in-out infinite,
+        gradientShift 5s ease infinite;
+      animation-delay: calc(var(--i) * -0.16s);
+      transform-origin: center bottom;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .wacky-char.big {
+      font-size: 1.24em;
+    }
+
+    .wacky-char:hover {
+      transform: scale(1.22) rotate(-8deg) !important;
+    }
+
+    @keyframes charFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(calc((var(--dir, 1)) * -2deg));
+      }
+      50% {
+        transform: translateY(-6px) rotate(calc((var(--dir, 1)) * 2.5deg));
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+    }
+
+    /* Carte du jeu The Flying Jacuzzi */
+    .project-card {
+      width: min(100%, 540px);
+      background: rgba(18, 8, 42, 0.72);
+      border: 1.5px solid rgba(0, 245, 212, 0.55);
       border-radius: 22px;
+      padding: clamp(1.4rem, 4vw, 2.4rem) clamp(1rem, 4vw, 2.4rem);
       box-shadow:
-        0 0 35px rgba(247, 37, 133, 0.45),
-        0 0 60px rgba(0, 245, 212, 0.25),
-        inset 0 0 25px rgba(155, 93, 229, 0.28);
+        0 16px 40px rgba(0, 0, 0, 0.55),
+        0 0 28px rgba(0, 245, 212, 0.18),
+        inset 0 0 24px rgba(255, 42, 133, 0.12);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.1rem, 3vw, 1.65rem);
+      transition: transform 0.15s ease-out, box-shadow 0.2s ease;
     }
 
     .game-title {
       font-family: 'Bungee Shade', cursive;
-      font-size: clamp(1.45rem, 4.2vw, 3rem);
-      letter-spacing: 0.06em;
+      font-size: clamp(1.35rem, 5.6vw, 2.35rem);
+      line-height: 1.25;
       color: #ffffff;
       text-shadow:
-        0 0 12px #f72585,
-        0 0 28px #7209b7,
-        0 0 42px #00f5d4;
-      margin-bottom: 1.5rem;
+        0 0 12px rgba(255, 42, 133, 0.75),
+        0 0 26px rgba(181, 23, 158, 0.55);
+      letter-spacing: 0.04em;
     }
 
-    /* Bouton COMING SOON réactif au survol de la souris */
-    .coming-soon {
+    .coming-soon-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      padding: 0.65rem 1.7rem;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.72rem clamp(1.3rem, 5vw, 2.4rem);
       border-radius: 999px;
-      background: linear-gradient(90deg, #ffbe0b, #ff007f, #9b5de5, #00f5d4, #ffbe0b);
-      background-size: 300% 100%;
-      color: #0b051d;
+      background: linear-gradient(90deg, #d946ef 0%, #a855f7 35%, #00f5d4 100%);
+      color: #0b0318;
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(0.78rem, 1.4vw, 0.95rem);
       font-weight: 900;
-      letter-spacing: 0.2em;
+      font-size: clamp(0.75rem, 2.8vw, 0.98rem);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      cursor: pointer;
-      user-select: none;
       box-shadow:
-        0 0 18px rgba(255, 0, 127, 0.75),
-        0 0 26px rgba(0, 245, 212, 0.6);
-      animation: gradientFlow 4s linear infinite;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
-    }
-
-    .coming-soon:hover {
-      animation:
-        gradientFlow 1.2s linear infinite,
-        jellyDance 0.55s ease-in-out infinite;
-      box-shadow:
-        0 0 28px #ffbe0b,
-        0 0 45px #ff007f,
-        0 0 65px #00f5d4;
-    }
-
-    @keyframes gradientFlow {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 300% 50%; }
-    }
-
-    @keyframes jellyDance {
-      0%   { transform: scale(1.12) rotate(0deg) translateY(-4px); }
-      25%  { transform: scale(1.16, 1.06) rotate(-4deg) translateY(-7px); }
-      50%  { transform: scale(1.08, 1.18) rotate(4deg) translateY(-3px); }
-      75%  { transform: scale(1.15, 1.08) rotate(-3deg) translateY(-6px); }
-      100% { transform: scale(1.12) rotate(0deg) translateY(-4px); }
+        0 0 22px rgba(217, 70, 239, 0.55),
+        0 0 28px rgba(0, 245, 212, 0.45);
+      white-space: nowrap;
     }
 
     .dot {
       width: 8px;
       height: 8px;
-      background: #0b051d;
       border-radius: 50%;
+      background-color: #0b0318;
       display: inline-block;
+      animation: pulseDot 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.4);
+        opacity: 0.65;
+      }
+    }
+
+    /* Ajustements supplémentaires pour le mode paysage sur mobile */
+    @media (max-height: 540px) and (orientation: landscape) {
+      .stage {
+        margin: 0 auto;
+        justify-content: flex-start;
+        padding-top: 1.4rem;
+        padding-bottom: 2.4rem;
+        gap: 1rem;
+      }
+
+      .title-line {
+        font-size: clamp(1.8rem, 5.8vw, 3.1rem);
+      }
+
+      .title-line.studio-line {
+        font-size: clamp(1.65rem, 5.4vw, 2.85rem);
+      }
+
+      .project-card {
+        padding: 1.15rem 1.5rem;
+        gap: 0.9rem;
+      }
+
+      .game-title {
+        font-size: clamp(1.25rem, 4vw, 1.8rem);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="psychedelic-bg"></div>
-  <div class="vignette"></div>
-  <div class="retro-grid"></div>
-  <canvas id="psy-canvas"></canvas>
+  <div class="bg-aurora" id="aurora"></div>
+  <div class="perspective-grid"></div>
+  <div class="scanlines"></div>
+  <canvas id="trip-canvas"></canvas>
 
-  <main>
-    <div class="tagline">Welcome to the trip</div>
-    <h1>
-      <span class="wacky-big letter-v">V</span>iral
-      <span class="wacky-big letter-d">D</span>ream<span class="wacky-big letter-z">Z</span>
-      <span class="studio-line">
-        <span class="wacky-big letter-s">S</span>tudio
-      </span>
+  <main class="stage">
+    <p class="subtitle">WELCOME TO THE TRIP</p>
+
+    <h1 class="logo-title" aria-label="Viral DreamZ Studio">
+      <span class="title-line" id="line-1"></span>
+      <span class="title-line studio-line" id="line-2"></span>
     </h1>
 
-    <div class="game-card">
-      <div class="game-title">The Flying Jacuzzi</div>
-      <div class="coming-soon">
+    <section class="project-card" id="card">
+      <h2 class="game-title">
+        THE FLYING<br />JACUZZI
+      </h2>
+      <div class="coming-soon-pill">
         <span class="dot"></span>
-        Coming Soon
+        <span>COMING SOON</span>
         <span class="dot"></span>
       </div>
-    </div>
+    </section>
   </main>
 
   <script>
-    const canvas = document.getElementById('psy-canvas');
-    const ctx = canvas.getContext('2d');
+    // Génération des lettres animées tout en gardant les mots soudés
+    function renderWackyLine(elementId, tokens, startIndex) {
+      const container = document.getElementById(elementId);
+      let idx = startIndex;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      tokens.forEach((token) => {
+        if (token.text === ' ') {
+          const gap = document.createElement('span');
+          gap.className = 'word-gap';
+          gap.innerHTML = '&nbsp;';
+          container.appendChild(gap);
+          return;
+        }
+
+        const span = document.createElement('span');
+        span.className = 'wacky-char' + (token.big ? ' big' : '');
+        span.textContent = token.text;
+        span.style.setProperty('--i', idx);
+        span.style.setProperty('--dir', idx % 2 === 0 ? 1 : -1);
+        container.appendChild(span);
+        idx++;
+      });
+
+      return idx;
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
 
-    const effects = [];
-    let baseHue = 0;
-    let lastSpawn = 0;
+    const line1Tokens = [
+      { text: 'V', big: true },
+      { text: 'I' },
+      { text: 'R' },
+      { text: 'A' },
+      { text: 'L' },
+      { text: ' ' },
+      { text: 'D', big: true },
+      { text: 'R' },
+      { text: 'E' },
+      { text: 'A' },
+      { text: 'M' },
+      { text: 'Z', big: true }
+    ];
 
-    function spawnPsychedelicEffect(x, y, scaleBoost = 1) {
-      baseHue = (baseHue + 23) % 360;
+    const line2Tokens = [
+      { text: 'S', big: true },
+      { text: 'T' },
+      { text: 'U' },
+      { text: 'D' },
+      { text: 'I' },
+      { text: 'O' }
+    ];
 
-      // Gros nuage de plasma multicolore
-      effects.push({
-        type: 'plasma',
-        x: x + (Math.random() - 0.5) * 20,
-        y: y + (Math.random() - 0.5) * 20,
-        vx: (Math.random() - 0.5) * 1.8,
-        vy: (Math.random() - 0.5) * 1.8,
-        radius: 35 * scaleBoost,
-        maxRadius: (130 + Math.random() * 90) * scaleBoost,
-        hue1: baseHue,
-        hue2: (baseHue + 110) % 360,
-        hue3: (baseHue + 220) % 360,
-        alpha: 0.85,
-        decay: 0.013
-      });
+    const nextIdx = renderWackyLine('line-1', line1Tokens, 0);
+    renderWackyLine('line-2', line2Tokens, nextIdx);
 
-      // Anneau psychédélique ondulant (forme fleur / kaléidoscope)
-      effects.push({
-        type: 'waveRing',
-        x,
-        y,
-        radius: 20 * scaleBoost,
-        maxRadius: (145 + Math.random() * 85) * scaleBoost,
-        hue: (baseHue + 55) % 360,
-        lobes: 5 + Math.floor(Math.random() * 5),
-        rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.1,
-        alpha: 0.95,
-        decay: 0.016
-      });
+    // Effets interactifs de fond, particules psychédéliques et inclinaison 3D
+    const canvas = document.getElementById('trip-canvas');
+    const ctx = canvas.getContext('2d');
+    const aurora = document.getElementById('aurora');
+    const card = document.getElementById('card');
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const palette = ['#ff2a85', '#00f5d4', '#ffb703', '#b5179e', '#72efdd'];
+    const particles = [];
+
+    function spawnParticles(x, y, count) {
+      for (let i = 0; i < count; i++) {
+        if (particles.length > 90) particles.shift();
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 2.4 + 0.5;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: Math.random() * 5 + 2,
+          color: palette[Math.floor(Math.random() * palette.length)],
+          alpha: 0.9
+        });
+      }
+    }
+
+    function updatePointer(clientX, clientY, burst) {
+      const px = ((clientX / width) * 100).toFixed(1) + '%';
+      const py = ((clientY / height) * 100).toFixed(1) + '%';
+      aurora.style.setProperty('--mx', px);
+      aurora.style.setProperty('--my', py);
+
+      spawnParticles(clientX, clientY, burst);
+
+      if (window.innerWidth > 768) {
+        const tiltX = ((clientY / height) - 0.5) * -10;
+        const tiltY = ((clientX / width) - 0.5) * 10;
+        card.style.transform = `perspective(800px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+      } else {
+        card.style.transform = 'none';
+      }
     }
 
     window.addEventListener('mousemove', (e) => {
-      const now = performance.now();
-      if (now - lastSpawn > 22) {
-        spawnPsychedelicEffect(e.clientX, e.clientY, 1);
-        lastSpawn = now;
-      }
-    });
+      updatePointer(e.clientX, e.clientY, 2);
+    }, { passive: true });
 
+    // Passive: true garantit que le balayage du doigt fait bien descendre la page sur mobile
     window.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      if (touch) {
-        spawnPsychedelicEffect(touch.clientX, touch.clientY, 1);
+      if (e.touches && e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY, 1);
       }
     }, { passive: true });
 
-    window.addEventListener('click', (e) => {
-      for (let i = 0; i < 3; i++) {
-        spawnPsychedelicEffect(e.clientX, e.clientY, 1.6);
-      }
-    });
-
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.clearRect(0, 0, width, height);
 
-      for (let i = effects.length - 1; i >= 0; i--) {
-        const p = effects[i];
-        p.alpha -= p.decay;
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.018;
+        p.size *= 0.985;
 
-        if (p.alpha <= 0) {
-          effects.splice(i, 1);
+        if (p.alpha <= 0.02) {
+          particles.splice(i, 1);
           continue;
         }
 
-        if (p.type === 'plasma') {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.radius += (p.maxRadius - p.radius) * 0.07;
-          p.hue1 = (p.hue1 + 3) % 360;
-          p.hue2 = (p.hue2 + 4) % 360;
-
-          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-          grad.addColorStop(0, `hsla(${p.hue1}, 100%, 68%, ${p.alpha * 0.75})`);
-          grad.addColorStop(0.45, `hsla(${p.hue2}, 100%, 58%, ${p.alpha * 0.5})`);
-          grad.addColorStop(0.8, `hsla(${p.hue3}, 100%, 50%, ${p.alpha * 0.22})`);
-          grad.addColorStop(1, `hsla(${p.hue3}, 100%, 50%, 0)`);
-
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fill();
-        } else if (p.type === 'waveRing') {
-          p.radius += (p.maxRadius - p.radius) * 0.08;
-          p.rotation += p.rotSpeed;
-          p.hue = (p.hue + 5) % 360;
-
-          ctx.save();
-          ctx.beginPath();
-          const steps = 72;
-          for (let s = 0; s <= steps; s++) {
-            const angle = (s / steps) * Math.PI * 2;
-            const wave = Math.sin(angle * p.lobes + p.rotation * 3) * (p.radius * 0.16);
-            const r = p.radius + wave;
-            const px = p.x + Math.cos(angle + p.rotation) * r;
-            const py = p.y + Math.sin(angle + p.rotation) * r;
-            if (s === 0) ctx.moveTo(px, py);
-            else ctx.lineTo(px, py);
-          }
-          ctx.closePath();
-          ctx.strokeStyle = `hsla(${p.hue}, 100%, 65%, ${p.alpha})`;
-          ctx.lineWidth = 3.5;
-          ctx.shadowBlur = 18;
-          ctx.shadowColor = `hsla(${(p.hue + 60) % 360}, 100%, 60%, ${p.alpha})`;
-          ctx.stroke();
-          ctx.restore();
-        }
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
 
       requestAnimationFrame(animate);
