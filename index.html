@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Viral DreamZ Studio</title>
+  <title>Viral DreamZ Studio — The Flying Jacuzzi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Luckiest+Guy&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet" />
@@ -47,14 +47,14 @@
       display: block;
     }
 
-    /* Léger voile de contraste pour que le lettrage ressorte parfaitement sur les fractales */
+    /* Voile de contraste subtil pour faire ressortir le texte et la vidéo */
     .vignette-overlay {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
       background:
-        radial-gradient(circle at 50% 45%, rgba(18, 3, 38, 0.28) 0%, rgba(10, 2, 24, 0.68) 100%),
+        radial-gradient(circle at 50% 42%, rgba(18, 3, 38, 0.25) 0%, rgba(10, 2, 24, 0.72) 100%),
         repeating-linear-gradient(
           to bottom,
           rgba(255, 255, 255, 0.015) 0px,
@@ -64,20 +64,20 @@
         );
     }
 
-    /* Conteneur principal centré et toujours défilable en mode paysage */
+    /* Conteneur principal centré et fluide sur tous les écrans */
     .stage {
       position: relative;
       z-index: 2;
       width: 100%;
       max-width: 980px;
       margin: auto;
-      padding: clamp(2.2rem, 6vh, 4rem) clamp(0.75rem, 4vw, 2rem);
+      padding: clamp(2rem, 5vh, 3.6rem) clamp(0.75rem, 4vw, 2rem) clamp(2.4rem, 6vh, 4rem);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: clamp(1.3rem, 3.8vh, 2.5rem);
+      gap: clamp(1.25rem, 3.4vh, 2.2rem);
     }
 
     .subtitle {
@@ -95,7 +95,7 @@
       max-width: 100%;
     }
 
-    /* Lettrage original Viral DreamZ Studio fidèle au design de base */
+    /* Lettrage original Viral DreamZ Studio */
     .logo-title {
       font-family: 'Luckiest Guy', cursive;
       font-weight: 400;
@@ -103,7 +103,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: clamp(0.2rem, 1.2vw, 0.55rem);
+      gap: clamp(0.2rem, 1.2vw, 0.5rem);
       width: 100%;
       line-height: 1.05;
       user-select: none;
@@ -141,9 +141,9 @@
       width: 0.32em;
     }
 
-    /* Carte The Flying Jacuzzi */
+    /* Carte principale du jeu + bande-annonce */
     .project-card {
-      width: min(100%, 540px);
+      width: min(100%, 680px);
       background:
         repeating-linear-gradient(
           to bottom,
@@ -152,68 +152,206 @@
           transparent 1px,
           transparent 4px
         ),
-        rgba(17, 7, 40, 0.82);
-      border: 1.5px solid rgba(0, 245, 212, 0.55);
-      border-radius: 22px;
-      padding: clamp(1.5rem, 4.5vw, 2.5rem) clamp(1rem, 4vw, 2.5rem);
+        rgba(17, 7, 40, 0.84);
+      border: 1.5px solid rgba(0, 245, 212, 0.6);
+      border-radius: 24px;
+      padding: clamp(1.35rem, 4vw, 2.3rem) clamp(0.95rem, 3.8vw, 2.3rem);
       box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.65),
-        0 0 28px rgba(0, 245, 212, 0.2),
-        inset 0 0 25px rgba(255, 42, 133, 0.14);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        0 0 32px rgba(0, 245, 212, 0.22),
+        inset 0 0 28px rgba(255, 42, 133, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(1.15rem, 3.2vw, 1.7rem);
+      gap: clamp(1.1rem, 3vw, 1.6rem);
     }
 
     .game-title {
       font-family: 'Bungee Shade', cursive;
       font-weight: 400;
-      font-size: clamp(1.35rem, 5.8vw, 2.35rem);
-      line-height: 1.25;
+      font-size: clamp(1.35rem, 5.6vw, 2.4rem);
+      line-height: 1.22;
       color: #ffffff;
       text-shadow:
-        0 0 12px rgba(255, 42, 133, 0.65),
-        0 0 24px rgba(168, 85, 247, 0.45);
+        0 0 12px rgba(255, 42, 133, 0.7),
+        0 0 26px rgba(168, 85, 247, 0.5);
       letter-spacing: 0.04em;
     }
 
-    .coming-soon-pill {
+    /* Conteneur vidéo 16:9 encadré de néon */
+    .trailer-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #070112;
+      border: 1.5px solid rgba(255, 42, 133, 0.65);
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.75),
+        0 0 22px rgba(255, 42, 133, 0.32),
+        0 0 32px rgba(0, 245, 212, 0.22);
+    }
+
+    .trailer-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Badge Coming Soon on Steam */
+    .steam-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      padding: 0.75rem clamp(1.3rem, 5vw, 2.5rem);
+      gap: clamp(0.45rem, 1.8vw, 0.75rem);
+      max-width: 100%;
+      padding: 0.78rem clamp(1rem, 4.5vw, 2.2rem);
       border-radius: 999px;
-      background: linear-gradient(90deg, #d946ef 0%, #ec4899 35%, #00f5d4 100%);
+      background: linear-gradient(90deg, #ffb703 0%, #ff2a85 45%, #00f5d4 100%);
+      background-size: 180% 180%;
+      animation: pillGlow 5s ease infinite;
       color: #0b0318;
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
-      font-size: clamp(0.75rem, 2.8vw, 0.98rem);
-      letter-spacing: 0.14em;
+      font-size: clamp(0.66rem, 2.6vw, 0.96rem);
+      letter-spacing: clamp(0.07em, 0.4vw, 0.13em);
       text-transform: uppercase;
       box-shadow:
-        0 0 22px rgba(217, 70, 239, 0.55),
-        0 0 28px rgba(0, 245, 212, 0.45);
+        0 0 24px rgba(255, 42, 133, 0.55),
+        0 0 30px rgba(0, 245, 212, 0.45);
       white-space: nowrap;
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #0b0318;
-      display: inline-block;
+    .steam-icon {
+      width: clamp(18px, 4.5vw, 22px);
+      height: clamp(18px, 4.5vw, 22px);
+      flex-shrink: 0;
+      fill: #0b0318;
     }
 
-    /* Mode paysage sur mobile : défilement fluide du haut jusqu'en bas */
+    @keyframes pillGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Lien chaîne YouTube officielle */
+    .yt-channel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #c4f9ff;
+      text-decoration: none;
+      font-size: clamp(0.68rem, 2.3vw, 0.82rem);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(128, 255, 234, 0.32);
+      background: rgba(12, 4, 30, 0.55);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .yt-channel-link:hover {
+      transform: translateY(-2px);
+      border-color: #ff2a85;
+      box-shadow: 0 0 16px rgba(255, 42, 133, 0.5);
+      color: #ffffff;
+    }
+
+    .yt-icon {
+      width: 17px;
+      height: 17px;
+      fill: #ff2a85;
+      flex-shrink: 0;
+    }
+
+    /* Pied de page psychédélique Québec & Canada */
+    .origin-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.2rem;
+    }
+
+    .psy-emblem-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.85rem, 3vw, 1.35rem);
+      padding: 0.65rem 1.45rem;
+      border-radius: 999px;
+      background: rgba(16, 5, 38, 0.76);
+      border: 1px solid rgba(255, 42, 133, 0.45);
+      box-shadow:
+        0 8px 26px rgba(0, 0, 0, 0.55),
+        0 0 22px rgba(168, 85, 247, 0.3),
+        inset 0 0 18px rgba(0, 245, 212, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .emblem-svg {
+      width: clamp(30px, 7vw, 38px);
+      height: clamp(30px, 7vw, 38px);
+      overflow: visible;
+      animation: emblemPulse 3.6s ease-in-out infinite;
+    }
+
+    .emblem-svg.maple {
+      animation-delay: -1.8s;
+    }
+
+    .emblem-qc {
+      filter:
+        drop-shadow(0 0 8px rgba(0, 245, 212, 0.85))
+        drop-shadow(0 0 16px rgba(59, 130, 246, 0.65));
+    }
+
+    .emblem-can {
+      filter:
+        drop-shadow(0 0 8px rgba(255, 42, 133, 0.9))
+        drop-shadow(0 0 16px rgba(255, 183, 3, 0.6));
+    }
+
+    .emblem-divider {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00f5d4, #ff2a85);
+      box-shadow: 0 0 10px #00f5d4;
+    }
+
+    @keyframes emblemPulse {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-3px) scale(1.07); }
+    }
+
+    .origin-text {
+      font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      padding-left: 0.22em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #00f5d4 0%, #ffb703 50%, #ff2a85 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 16px rgba(255, 42, 133, 0.35);
+    }
+
+    /* Mode paysage sur mobile : défilement complet du haut jusqu'en bas */
     @media (max-height: 550px) and (orientation: landscape) {
       .stage {
         margin: 0 auto;
         justify-content: flex-start;
-        padding-top: 1.4rem;
+        padding-top: 1.3rem;
         padding-bottom: 2.5rem;
         gap: 1rem;
       }
@@ -227,7 +365,8 @@
       }
 
       .project-card {
-        padding: 1.2rem 1.5rem;
+        width: min(100%, 560px);
+        padding: 1.15rem 1.35rem;
         gap: 0.95rem;
       }
 
@@ -257,12 +396,71 @@
       <h2 class="game-title">
         THE FLYING<br />JACUZZI
       </h2>
-      <div class="coming-soon-pill">
-        <span class="dot"></span>
-        <span>COMING SOON</span>
-        <span class="dot"></span>
+
+      <!-- Bande-annonce officielle YouTube -->
+      <div class="trailer-frame">
+        <iframe
+          src="https://www.youtube.com/embed/b7SfQQZpA50?rel=0"
+          title="The Flying Jacuzzi - Official Teaser Trailer"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
+
+      <!-- Badge Steam avec icône officielle -->
+      <div class="steam-pill">
+        <svg class="steam-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.455 1.012zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/>
+        </svg>
+        <span>COMING SOON ON STEAM</span>
+      </div>
+
+      <!-- Lien direct vers la chaîne YouTube du studio -->
+      <a
+        class="yt-channel-link"
+        href="https://www.youtube.com/@ViralDreamZStudio"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="yt-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        <span>@ViralDreamZStudio</span>
+      </a>
     </section>
+
+    <!-- Emblème psychédélique Québec (Fleur de lys) & Canada (Feuille d'érable) -->
+    <footer class="origin-footer" aria-label="Crafted in Québec, Canada">
+      <div class="psy-emblem-badge">
+        <!-- Fleur de lys psychédélique -->
+        <svg class="emblem-svg emblem-qc" viewBox="0 0 100 120" aria-label="Québec">
+          <defs>
+            <linearGradient id="psyQcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#80ffea" />
+              <stop offset="50%" stop-color="#00bbf9" />
+              <stop offset="100%" stop-color="#a855f7" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#psyQcGrad)" d="M50 4 C42 20 37 36 39 56 C40 64 44 70 46 75 L54 75 C56 70 60 64 61 56 C63 36 58 20 50 4 Z M43 75 C38 60 28 45 14 48 C4 50 3 63 12 70 C18 74 26 71 24 64 C23 60 27 58 31 61 C35 64 37 70 38 75 Z M57 75 C62 60 72 45 86 48 C96 50 97 63 88 70 C82 74 74 71 76 64 C77 60 73 58 69 61 C65 64 63 70 62 75 Z M25 77 H75 A3 3 0 0 1 78 80 V82 A3 3 0 0 1 75 85 H25 A3 3 0 0 1 22 82 V80 A3 3 0 0 1 25 77 Z M44 87 L40 104 L50 116 L60 104 L56 87 Z M39 87 C35 95 26 99 19 95 C23 104 34 104 42 95 Z M61 87 C65 95 74 99 81 95 C77 104 66 104 58 95 Z" />
+        </svg>
+
+        <span class="emblem-divider"></span>
+
+        <!-- Feuille d'érable psychédélique -->
+        <svg class="emblem-svg maple emblem-can" viewBox="0 0 100 110" aria-label="Canada">
+          <defs>
+            <linearGradient id="psyCanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffb703" />
+              <stop offset="50%" stop-color="#ff2a85" />
+              <stop offset="100%" stop-color="#d946ef" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#psyCanGrad)" d="M50 5 L57 21 L66 17 L61 45 L75 32 L79 42 L94 42 L83 52 L87 58 L65 69 L68 77 L52 74 L53 103 L47 103 L48 74 L32 77 L35 69 L13 58 L17 52 L6 42 L21 42 L25 32 L39 45 L34 17 L43 21 Z" />
+        </svg>
+      </div>
+      <p class="origin-text">CRAFTED IN QUÉBEC • CANADA</p>
+    </footer>
   </main>
 
   <script>
@@ -301,7 +499,6 @@
         uniform float u_time;
         uniform vec2 u_ptr;
 
-        // Palette cosinus psychédélique (magenta, cyan électrique, or, ultraviolet)
         vec3 dmtPalette(float t) {
           vec3 a = vec3(0.52, 0.22, 0.65);
           vec3 b = vec3(0.48, 0.45, 0.45);
@@ -319,7 +516,6 @@
           vec2 uv = (gl_FragCoord.xy * 2.0 - u_res.xy) / min(u_res.x, u_res.y);
           uv += u_ptr * 0.12;
 
-          // Symétrie kaléidoscopique à 10 branches (chrysanthème géométrique)
           float r = length(uv);
           float angle = atan(uv.y, uv.x) + u_time * 0.08;
           float sides = 10.0;
@@ -331,7 +527,6 @@
           vec2 uv0 = uv;
           vec3 finalColor = vec3(0.0);
 
-          // Pliage fractal multidimensionnel en mouvement continu
           for (float i = 0.0; i < 4.0; i++) {
             uv = fract(uv * 1.48 - vec2(u_time * 0.09, u_time * 0.06)) - 0.5;
             uv *= rot(u_time * 0.15 + i * 0.6);
@@ -346,7 +541,6 @@
             finalColor += col * d;
           }
 
-          // Équilibre lumineux pour un rendu hypnotique sans éblouir le texte
           finalColor = finalColor / (1.0 + finalColor * 0.85);
           finalColor *= 0.78;
 
