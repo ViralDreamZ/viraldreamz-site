@@ -141,7 +141,7 @@
       width: 0.32em;
     }
 
-    /* Carte principale du jeu + bande-annonce */
+    /* Carte principale du jeu + bandes-annonces */
     .project-card {
       width: min(100%, 680px);
       background:
@@ -165,7 +165,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(1.1rem, 3vw, 1.6rem);
+      gap: clamp(1rem, 2.8vw, 1.45rem);
     }
 
     .game-title {
@@ -178,6 +178,50 @@
         0 0 12px rgba(255, 42, 133, 0.7),
         0 0 26px rgba(168, 85, 247, 0.5);
       letter-spacing: 0.04em;
+    }
+
+    /* Sélecteur néon pour basculer entre les 2 bandes-annonces */
+    .trailer-tabs {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.35rem;
+      border-radius: 999px;
+      background: rgba(9, 2, 24, 0.78);
+      border: 1px solid rgba(0, 245, 212, 0.38);
+      box-shadow: inset 0 0 14px rgba(255, 42, 133, 0.16);
+      max-width: 100%;
+    }
+
+    .trailer-tab {
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #b8f3ff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.68rem, 2.5vw, 0.84rem);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.52rem clamp(0.9rem, 3.6vw, 1.45rem);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .trailer-tab:hover {
+      color: #ffffff;
+      border-color: rgba(255, 42, 133, 0.5);
+    }
+
+    .trailer-tab.active {
+      background: linear-gradient(90deg, #ff2a85 0%, #a855f7 50%, #00f5d4 100%);
+      color: #0b0318;
+      box-shadow:
+        0 0 16px rgba(255, 42, 133, 0.6),
+        0 0 20px rgba(0, 245, 212, 0.4);
     }
 
     /* Conteneur vidéo 16:9 encadré de néon */
@@ -367,7 +411,7 @@
       .project-card {
         width: min(100%, 560px);
         padding: 1.15rem 1.35rem;
-        gap: 0.95rem;
+        gap: 0.9rem;
       }
 
       .game-title {
@@ -397,11 +441,36 @@
         THE FLYING<br />JACUZZI
       </h2>
 
-      <!-- Bande-annonce officielle YouTube -->
+      <!-- Sélecteur néon des 2 bandes-annonces -->
+      <div class="trailer-tabs" role="tablist" aria-label="Official Trailers">
+        <button
+          type="button"
+          class="trailer-tab active"
+          role="tab"
+          aria-selected="true"
+          data-video-id="b7SfQQZpA50"
+          data-video-title="The Flying Jacuzzi - Official Teaser Trailer 1"
+        >
+          ▶ TRAILER 1
+        </button>
+        <button
+          type="button"
+          class="trailer-tab"
+          role="tab"
+          aria-selected="false"
+          data-video-id="SxCgBt4Yhlo"
+          data-video-title="The Flying Jacuzzi - Official Trailer 2"
+        >
+          ▶ TRAILER 2
+        </button>
+      </div>
+
+      <!-- Lecteur vidéo 16:9 YouTube -->
       <div class="trailer-frame">
         <iframe
+          id="trailer-player"
           src="https://www.youtube.com/embed/b7SfQQZpA50?rel=0"
-          title="The Flying Jacuzzi - Official Teaser Trailer"
+          title="The Flying Jacuzzi - Official Teaser Trailer 1"
           referrerpolicy="strict-origin-when-cross-origin"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
@@ -464,6 +533,29 @@
   </main>
 
   <script>
+    // Bascule instantanée entre Trailer 1 et Trailer 2
+    const trailerTabs = document.querySelectorAll('.trailer-tab');
+    const trailerPlayer = document.getElementById('trailer-player');
+
+    trailerTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        if (tab.classList.contains('active')) return;
+
+        trailerTabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const videoId = tab.getAttribute('data-video-id');
+        const videoTitle = tab.getAttribute('data-video-title');
+        trailerPlayer.title = videoTitle;
+        trailerPlayer.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
+      });
+    });
+
     // Moteur WebGL de géométrie sacrée et kaléidoscope fractal style DMT
     const canvas = document.getElementById('dmt-canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
